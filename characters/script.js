@@ -12,7 +12,7 @@
 
 const xhr = new XMLHttpRequest();
 
-xhr.open("GET", "https://rickandmortyapi.com/api/character");
+xhr.open("GET", "https://rickandmortyapi.com/api/character/");
 
 xhr.onreadystatechange = function(){
     if(xhr.readyState == 4 && xhr.status == 200){
@@ -99,7 +99,7 @@ xhr.onreadystatechange = function(){
             const a = document.createElement("a");
             a.classList = "btn btn-dark mt-auto";
             a.textContent = "Information";
-            a.setAttribute("href", "../profile/index.html");
+            a.setAttribute("href", "../profile/index.html?id=" +json.results[i].id);
 
             ul.appendChild(li1);
             ul.appendChild(li2);

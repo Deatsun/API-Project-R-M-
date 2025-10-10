@@ -1,0 +1,16 @@
+#image{
+
+  transition: transform 1s ease-in-out; /* animációs átmenet */
+
+transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+
+
+#image:hover {
+  transform: rotate(360deg); /* tengely körüli forgás */
+}
+
+
+ 
