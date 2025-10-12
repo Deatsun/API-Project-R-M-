@@ -1,22 +1,178 @@
-/*        <div class="col">
-                <div class="card">
-  <img src="..." class="card-img-top">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <ul class="list-group">
-  <li class="list-group-item">An item</li>
-</ul>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>*/
+/* <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>*/
+
+const usp = new URLSearchParams(window.location.search);
+const pages = Number(usp.get("page")) || 1;
 
 const xhr = new XMLHttpRequest();
 
-xhr.open("GET", "https://rickandmortyapi.com/api/character/");
+xhr.open("GET", "https://rickandmortyapi.com/api/character?page=" + pages);
 
 xhr.onreadystatechange = function(){
     if(xhr.readyState == 4 && xhr.status == 200){
         const json = JSON.parse(xhr.responseText);
+
+        //--------------------------------------------------Pages--------------------------------------------------------------------------------------------------------------
+            
+        const ul =  document.getElementById("pagination");
+        ul.classList ="pagination justify-content-center my-4";
+
+        const maxp = Number(json.info.pages);
+
+
+            //First button
+        const lifirst = document.createElement("li");
+        lifirst.classList = "page-item";
+        
+        const afirst = document.createElement("a");
+        afirst.classList = "page-link"
+        afirst.style.backgroundColor = "rgb(255, 94, 0)";
+        afirst.style.color = "black";
+        afirst.appendChild(document.createTextNode("First"));
+        afirst.setAttribute("href", "index.html?page=1");
+        if(pages === 1){
+            afirst.style.textDecoration = "underline";
+        }
+
+        lifirst.appendChild(afirst);
+        ul.appendChild(lifirst);
+
+
+            //Back button
+
+            const liback = document.createElement("li");
+            liback.classList = "page-item";
+
+            const aback = document.createElement("a");
+            aback.classList ="page-link";
+            aback.style.backgroundColor = "rgb(255, 94, 0)";
+            aback.style.color = "black";
+            aback.appendChild(document.createTextNode("Back"));
+            aback.setAttribute("href", "index.html?page=" + (pages - 1));
+            if(pages === 1){
+                if (pages === 1) {
+                    aback.classList.add("inactive");
+                     aback.style.backgroundColor = "rgba(255,165,0,0.4)";
+                     aback.style.color = "white";
+                     aback.style.cursor = "not-allowed";
+                    }
+                     else {
+                        aback.classList.remove("inactive");
+                        aback.style.backgroundColor = "rgba(255,165,0,1)";
+                        } 
+                    }
+
+            liback.appendChild(aback);
+            ul.appendChild(liback);
+
+
+
+
+
+
+                //Always 5 button and the active button on middle
+
+                const WindowSize = 5;
+
+                let start = pages - Math.floor(WindowSize / 2);
+                let end = pages + Math.floor(WindowSize / 2);
+
+                if(start < 1){
+                    start = 1;
+                    end = WindowSize;
+                }
+                if(end > maxp){
+                    end = maxp;
+                    start = Math.max(1, maxp - WindowSize + 1);
+                }
+
+
+
+
+                    //Buttons
+        for(let i = start; i <= end; i++){
+
+            let li = document.createElement("li");
+            li.classList = "page-item ";
+
+            let a = document.createElement("a");
+            a.classList = "page-link";
+            a.style.backgroundColor = "rgb(255, 165, 0)";
+            a.style.color ="black";
+            a.appendChild(document.createTextNode(i));
+            a.setAttribute("href", "index.html?page=" + i);
+
+            if(pages === i){
+                li.classList = "active";
+                li.style.textDecoration = "underline";
+                li.style.color = "black";
+                a.style.backgroundColor = "rgb(255, 51, 0)";
+            }
+
+                li.appendChild(a);
+                ul.appendChild(li);
+        };
+
+
+
+         //Next button
+
+        const linext = document.createElement("li");
+        linext.classList ="page-item";
+
+        const anext = document.createElement("a");
+        anext.classList ="page-link"
+        anext.appendChild(document.createTextNode("Next"));
+         anext.style.backgroundColor = "rgb(255, 94, 0)";
+        anext.style.color = "black";
+        anext.setAttribute("href", "index.html?page="+(pages + 1));
+        if(pages === maxp){
+                if (pages === maxp) {
+                    anext.classList.add("inactive");
+                     anext.style.backgroundColor = "rgba(255,165,0,0.4)";
+                     anext.style.color = "white";
+                     anext.style.cursor = "not-allowed";
+                    }
+                     else {
+                        anext.classList.remove("inactive");
+                        anext.style.backgroundColor = "rgba(255,165,0,1)";
+                        } 
+                    }
+        linext.appendChild(anext);
+        ul.appendChild(linext);
+
+
+
+                //Last button
+        const lilast = document.createElement("li");
+        lilast.classList = "page-item";
+
+        const alast = document.createElement("a");
+        alast.classList = "page-link";
+         alast.style.backgroundColor = "rgb(255, 94, 0)";
+         alast.style.color = "black";
+        alast.appendChild(document.createTextNode("Last"));
+        alast.setAttribute("href", "index.html?page=" + maxp);
+
+         if(pages === maxp){
+            alast.style.textDecoration = "underline";
+        }
+
+        lilast.appendChild(alast);
+        ul.appendChild(lilast);
+        
+
+        
+        
+
+
+
+
+
+        
 
         //---------------------------------------------------------------------------------Cards--------------------------------------------------------------------------------------
         for(let i = 0; i < json.results.length; i++){
