@@ -1,22 +1,127 @@
+const usp = new URLSearchParams(window.location.search);
+const pages = Number(usp.get("page") || 1);
+
 const xhr = new XMLHttpRequest();
 
-xhr.open("GET", "https://rickandmortyapi.com/api/location");
+xhr.open("GET", "https://rickandmortyapi.com/api/location/?page=" + pages);
 
 xhr.onreadystatechange = function(){
     if(xhr.readyState == 4 && xhr.status == 200){
         const json = JSON.parse(xhr.responseText);
 
-            //Cards--------------------------------------------------------------------------------------------------------------------------------------------------
+//--------------------Pages----------------------------------------------------------------------------------------------------------------------------
+
+const maxp = Number(json.info.pages);
+
+const ul = document.getElementById("pagination");
+
+            //First button
+const lifirst = document.createElement("li");
+lifirst.classList = "page-item";
+
+const afirst = document.createElement("a");
+afirst.classList = "page-link"
+afirst.appendChild(document.createTextNode("First"));
+afirst.setAttribute("href", "index.html?page=1");
+
+lifirst.appendChild(afirst);
+ul.appendChild(lifirst);
+
+
+       //Back button
+
+            const liback = document.createElement("li");
+            liback.classList = "page-item";
+
+            const aback = document.createElement("a");
+            aback.classList = "page-link";
+            aback.appendChild(document.createTextNode("Back"));
+            aback.setAttribute("href", "index.html?page=" + (pages-1));
+            if(pages === 1){
+                liback.classList = "disabled";
+            }
+
+            liback.appendChild(aback);
+            ul.appendChild(liback);
+
+
+            //Always 5 button and the active page on middle
+
+            const windowSize = 5;
+
+            let start = pages - Math.floor(windowSize / 2);
+            let end = pages + Math.floor(windowSize / 2);
+
+            if(start < 1){
+                start = 1;
+                end = windowSize;
+            }
+            if(end > maxp){
+                end = maxp;
+                start = Math.max(1, maxp- windowSize + 1);
+            }
+
+            //Buttons
+
+            for(let i = start; i <= end; i++){
+                let li = document.createElement("li");
+                li.classList = "page-item";
+                
+                let a = document.createElement("a");
+                a.classList = "page-link";
+                if(pages === i){
+                    li.classList = "page-item active";
+                }
+                a.appendChild(document.createTextNode(i));
+                a.setAttribute("href", "index.html?page=" + i);
+
+                li.appendChild(a);
+                ul.appendChild(li);
+            }
+
+
+                       //Next button
+const nextli = document.createElement("li");
+nextli.classList = "page-item";
+
+const nexta = document.createElement("a");
+nexta.classList = "page-link";
+nexta.appendChild(document.createTextNode("Next"));
+nexta.setAttribute("href", "index.html?page=" + (pages + 1));
+
+if(pages === maxp){
+    nextli.classList = "disabled";
+}
+
+nextli.appendChild(nexta);
+ul.appendChild(nextli);
+
+     
+            //Last button
+            
+            const lilast = document.createElement("li");
+            lilast.classList = "page-item";
+
+            const alast = document.createElement("a");
+            alast.classList = "page-link";
+            alast.appendChild(document.createTextNode("Last"));
+            alast.setAttribute("href", "index.html?page=" + maxp);
+
+            lilast.appendChild(alast);
+            ul.appendChild(lilast);
+
+
+//--------------------Cards--------------------------------------------------------------------------------------------------------------------------------------------------
         for(let i = 0; i < json.results.length; i++){
             
             const name = json.results[i].name;
             const type = json.results[i].type;
             const dimension = json.results[i].dimension;
             const residents = json.results[i].residents.length;
-                //Col
+                
             let col = document.createElement("div");
             col.classList = "col-12 col-md-4 col-lg-3 my-3";
-                //Card
+                
             let card = document.createElement("div");
             if(residents > 0){
 
@@ -58,6 +163,7 @@ xhr.onreadystatechange = function(){
             let hr = document.createElement("hr");
             hr.style.color = "white";
 
+                //Type
             let ul = document.createElement("ul");
             ul.classList = "list-group list-group-flush mt-auto";
             ul.style.border = "5px solid black";
@@ -66,9 +172,10 @@ xhr.onreadystatechange = function(){
             li1.classList = "list-group-item bg-secondary text-white text-center";
             li1.textContent = `Type: ${type}`;
 
+                //Dimension
             let li2 = document.createElement("li");
             li2.classList = "list-group-item bg-secondary text-white text-center";
-            if(dimension === "unknown"){
+            if(dimension === "unknown" || dimension.length === 0){
                 li2.textContent = "Dimension: Not know!";
                 li2.classList = "list-group-item bg-danger text-white text-center";
                 
@@ -77,7 +184,7 @@ xhr.onreadystatechange = function(){
                 li2.textContent = `Dimension: ${dimension}`;
             }
             
-
+                //Residents
             let li3 = document.createElement("li");
             li3.classList = "list-group-item bg-secondary text-white text-center";
             if(residents === 0){

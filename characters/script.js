@@ -1,9 +1,3 @@
-/* <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>*/
-
 const usp = new URLSearchParams(window.location.search);
 const pages = Number(usp.get("page")) || 1;
 
