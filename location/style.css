@@ -3,3 +3,24 @@
     text-decoration: underline;
     font-weight:900;
 }
+#pagination{
+    display: flex;
+    justify-content: center;
+}
+
+#pagination a { background-color:rgb(255, 165, 0); color: black;}
+
+#pagination .disabled a { background-color: rgb(255,165,0,0.4) !important; color: white; }
+
+#pagination .active a { background-color:rgb(255, 51, 0); text-decoration: underline; color: white;}
+
+#pagination a:hover{
+    background-color: red !important;
+    color: white;
+}
+#pagination a:active{
+    background-color: rgb(184, 75, 2) !important;
+    color: black;
+}
+
+

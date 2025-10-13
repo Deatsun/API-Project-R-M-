@@ -9,34 +9,12 @@ xhr.onreadystatechange  = () =>{
     if(xhr.readyState == 4 && xhr.status == 200){
         const json = JSON.parse(xhr.responseText);
 
-//-------------------------------Pages-------------------------------------------------------------------------------------------------
+//-------------------------------Pages------------------------------------------------------------------------------------------------------------------------------------
 
 const ul = document.getElementById("pagination");
+ul.classList = "pagination d-flex justify-content-center mt-2";
 const maxp = Number(json.info.pages);
 
-            //First
-            const firstli = document.createElement("li");
-            firstli.classList = "page-item";
-
-            const firsta = document.createElement("a");
-            firsta.classList = "page-link";
-            firsta.textContent = "First";
-            firsta.setAttribute("href", "index.html?page=1");
-
-            firstli.appendChild(firsta);
-            ul.appendChild(firstli);
-
-            //Next
-            const nextli = document.createElement("li");
-            nextli.classList = "page-item";
-
-            const nexta = document.createElement("a");
-            nexta.classList ="page-link";
-            nexta.textContent = "Next";
-            nexta.setAttribute("href", "index.html?page= " + (pages + 1));
-
-            nextli.appendChild(nexta);
-            ul.appendChild(nextli);
 
             //always 3 button and the active button on the middle
 
@@ -53,6 +31,7 @@ const maxp = Number(json.info.pages);
                 end = maxp;
                 start = Math.max(1, maxp-windowSize + 1);
             }
+//----------------------------------Cards----------------------------------------------------------------------------------------------------------------------------------
 
             for(let i = start; i < end; i++){
                 let li = document.createElement("li");
@@ -60,8 +39,32 @@ const maxp = Number(json.info.pages);
 
                 let a = document.createElement("a");
                 a.classList = "page-link";
+                a.style.backgroundColor = "rgb(255, 165, 0)";
+                a.style.color = "black";
                 a.appendChild(document.createTextNode(i));
-                a.setAttribute("href", "index.html?page=" + pages);
+                a.setAttribute("href", "index.html?page=" + i);
+                a.addEventListener("mouseover", function(){
+                    this.style.backgroundColor = "red";
+                    this.style.color = "white";
+                })
+                // Fixes hover color bug when switching pages
+                a.addEventListener("mouseout", function(){
+                    if(li.classList.contains("active")){
+                             this.style.backgroundColor = "rgb(255, 51, 0)";
+                    this.style.color = "white";
+                    }
+                    else{
+                        this.style.backgroundColor = "rgb(255, 165, 0)";
+                        this.style.color = "black";
+                    }
+                   
+                })
+                if(pages === i){
+                    li.classList.add("active");
+                    a.style.backgroundColor = "rgb(255, 51, 0)";
+                    a.style.color = "white";
+                    a.style.textDecoration = "underline";
+                }
                 li.appendChild(a);
                 ul.appendChild(li);
             }
@@ -80,7 +83,8 @@ const maxp = Number(json.info.pages);
             col.classList = "col-12 col-md-4 col-lg-3 my-2";
 
             let card = document.createElement("div");
-            card.classList ="card h-100";
+            card.classList ="card h-100 bg-dark";
+            card.style.border = "2px solid white";
 
             let cardbody = document.createElement("div");
             cardbody.classList = "card-body";
@@ -94,23 +98,52 @@ const maxp = Number(json.info.pages);
 
             let h3 = document.createElement("h3");
             h3.textContent = episode;
+
+            var epNum = parseInt(episode.slice(1,3));
+            if(epNum % 2 === 0){
+                li1.classList.add("bg-danger");
+                card.addEventListener("mouseover", function(){
+                this.style.transform = "scale(1.06)";
+                this.style.boxShadow = "3px 8px 15px rgba(146, 21, 4, 0.57)";
+                this.style.transition = "0.3s ease";
+            })
+            card.addEventListener("mouseout", function(){
+                this.style.transform = "scale(1)";
+                this.style.boxShadow = "none";
+                this.style.transition = "none";
+            })
+            }
+            else{
+                li1.classList.add("bg-success");
+                card.addEventListener("mouseover", function(){
+                this.style.transform = "scale(1.06)";
+                this.style.boxShadow = "3px 8px 15px rgba(11, 133, 21, 0.8)";
+                this.style.transition = "0.3s ease";
+            })
+            card.addEventListener("mouseout", function(){
+                this.style.transform = "scale(1)";
+                this.style.boxShadow = "none";
+                this.style.transition = "none";
+            })
+            }
+          
             
 
             li1.appendChild(h3);
 
             //Title
             let li2 = document.createElement("li");
-            li2.classList = "list-group-item text-center fw-bold";
+            li2.classList = "list-group-item text-center fw-bold bg-secondary text-white";
             li2.textContent = title;
 
             //Air date
             let li3 = document.createElement("li");
-            li3.classList = "list-group-item text-center";
+            li3.classList = "list-group-item text-center bg-secondary text-white";
             li3.textContent = `Air date: ${airdate}`;
 
             //Episode
             let li4 = document.createElement("li");
-            li4.classList = "list-group-item text-center";
+            li4.classList = "list-group-item text-center bg-secondary text-white";
             li4.textContent = `Characters: ${characters}`;
 
             ul.appendChild(li1);

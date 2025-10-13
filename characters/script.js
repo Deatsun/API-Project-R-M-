@@ -12,7 +12,7 @@ xhr.onreadystatechange = function(){
         //--------------------------------------------------Pages--------------------------------------------------------------------------------------------------------------
             
         const ul =  document.getElementById("pagination");
-        ul.classList ="pagination justify-content-center my-4";
+        ul.classList ="pagination justify-content-center mt-2 col-12";
 
         const maxp = Number(json.info.pages);
 
@@ -44,7 +44,7 @@ xhr.onreadystatechange = function(){
             aback.classList ="page-link";
             aback.style.backgroundColor = "rgb(255, 94, 0)";
             aback.style.color = "black";
-            aback.appendChild(document.createTextNode("Back"));
+            aback.appendChild(document.createTextNode("back"));
             aback.setAttribute("href", "index.html?page=" + (pages - 1));
             if(pages === 1){
                 if (pages === 1) {
@@ -69,7 +69,8 @@ xhr.onreadystatechange = function(){
 
                 //Always 5 button and the active button on middle
 
-                const WindowSize = 5;
+                
+                const WindowSize = 3;
 
                 let start = pages - Math.floor(WindowSize / 2);
                 let end = pages + Math.floor(WindowSize / 2);
@@ -102,7 +103,8 @@ xhr.onreadystatechange = function(){
             if(pages === i){
                 li.classList = "active";
                 li.style.textDecoration = "underline";
-                li.style.color = "black";
+                li.style.color = "white";
+                a.style.color ="white";
                 a.style.backgroundColor = "rgb(255, 51, 0)";
             }
 

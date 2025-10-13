@@ -14,6 +14,7 @@ xhr.onreadystatechange = function(){
 const maxp = Number(json.info.pages);
 
 const ul = document.getElementById("pagination");
+ul.classList = "pagination mt-2";
 
             //First button
 const lifirst = document.createElement("li");
@@ -22,7 +23,11 @@ lifirst.classList = "page-item";
 const afirst = document.createElement("a");
 afirst.classList = "page-link"
 afirst.appendChild(document.createTextNode("First"));
+afirst.style.backgroundColor = "rgb(255, 94, 0)";
 afirst.setAttribute("href", "index.html?page=1");
+if(pages === 1){
+    afirst.style.textDecoration = "underline";
+}
 
 lifirst.appendChild(afirst);
 ul.appendChild(lifirst);
@@ -37,6 +42,7 @@ ul.appendChild(lifirst);
             aback.classList = "page-link";
             aback.appendChild(document.createTextNode("Back"));
             aback.setAttribute("href", "index.html?page=" + (pages-1));
+            aback.style.backgroundColor = "rgb(255, 94, 0)";
             if(pages === 1){
                 liback.classList = "disabled";
             }
@@ -70,7 +76,7 @@ ul.appendChild(lifirst);
                 let a = document.createElement("a");
                 a.classList = "page-link";
                 if(pages === i){
-                    li.classList = "page-item active";
+                    li.classList = "active";
                 }
                 a.appendChild(document.createTextNode(i));
                 a.setAttribute("href", "index.html?page=" + i);
@@ -87,10 +93,12 @@ nextli.classList = "page-item";
 const nexta = document.createElement("a");
 nexta.classList = "page-link";
 nexta.appendChild(document.createTextNode("Next"));
+nexta.style.backgroundColor = "rgb(255, 94, 0)";
 nexta.setAttribute("href", "index.html?page=" + (pages + 1));
 
 if(pages === maxp){
     nextli.classList = "disabled";
+    nexta.style.cursor = "not-allowed";
 }
 
 nextli.appendChild(nexta);
@@ -105,7 +113,11 @@ ul.appendChild(nextli);
             const alast = document.createElement("a");
             alast.classList = "page-link";
             alast.appendChild(document.createTextNode("Last"));
+            alast.style.backgroundColor = "rgb(255, 94, 0)";
             alast.setAttribute("href", "index.html?page=" + maxp);
+            if(pages === maxp){
+    alast.style.textDecoration = "underline";
+}
 
             lilast.appendChild(alast);
             ul.appendChild(lilast);

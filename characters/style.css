@@ -1,0 +1,8 @@
+#pagination a:hover{
+    background-color: red !important;
+    color: white !important;
+}
+#pagination a:active{
+    background-color: rgb(184, 75, 2) !important;
+    color: black !important;}
+    
