@@ -8,6 +8,20 @@ xhr.open("GET", "https://rickandmortyapi.com/api/character/" + id);
 xhr.onreadystatechange = function(){
     if(xhr.readyState == 4 && xhr.status == 200){
         const json = JSON.parse(xhr.responseText);
+        //----------------------------------------------Window buttons----------------------------------------------------------------------------------------------------
+
+        //back button
+       let back = document.getElementById("backWindow");
+       back.appendChild(document.createTextNode(""));
+       back.addEventListener("click",function(){
+        window.history.back();
+       });
+
+       //forward button
+       let forward = document.getElementById("forwardWindow");
+       forward.addEventListener("click", function(){
+        window.history.forward();
+       });
 
         let img = document.getElementById("image");
         img.setAttribute("src", json.image);

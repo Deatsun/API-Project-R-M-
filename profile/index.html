@@ -5,26 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rick & Morty</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body style="background-color: grey;">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 mb-3">
   <div class="container">
-    <a class="navbar-brand" href="../characters/index.html">R&M</a>
+    <div id="buttonsWindow" class="d-flex align-item-center">
+        <i class="bi bi-arrow-left text-white me-2" id="backWindow"></i>
+    <i class="bi bi-arrow-right text-white" id="forwardWindow"></i>
+    </div>
+  <a class="navbar-brand" href="index.html"><img src="r&micon.png" class="navbar-brand" alt="R&M" id="icon"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="../characters/index.html">Characters</a>
+          <a class="nav-link active" aria-current="page" href="../characters/index.html" id="characters">Characters</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../location/index.html">Location</a>
+          <a class="nav-link" href="../location/index.html" id="location">Location</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../episodes/index.html">Episodes</a>
+          <a class="nav-link" href="../episodes/index.html" id="episodes">Episodes</a>
         </li>
       </ul>
     </div>
